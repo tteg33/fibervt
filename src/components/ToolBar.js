@@ -12,9 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { NavLink, Link } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const pages = ['Upload', 'History', 'FAQ'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Login', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,13 +37,12 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> <Typography variant="h6"
             noWrap
             component="a"
             href="/"
@@ -88,9 +89,13 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
+		<NavLink
+		      to={'/'+page.toLowerCase()}
+		      >
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
+		      </NavLink>
               ))}
             </Menu>
           </Box>
@@ -115,13 +120,18 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
+             <NavLink
+               to={'/'+page.toLowerCase()}
+		    className={({ isActive }) => (isActive ? 'link active' : 'link')}
+		    >
+		    <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
               </Button>
+		    </NavLink>
             ))}
           </Box>
 
@@ -147,11 +157,15 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+	      {settings.map((setting) => (
+		<Link to={'/'+setting.toLowerCase()}>
+                  <MenuItem
+		  key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+                  </MenuItem>
+		</Link>
+                ))}
+
             </Menu>
           </Box>
         </Toolbar>
