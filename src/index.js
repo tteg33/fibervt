@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//import componets
+import GltfRenderer from './components/GltfRenderer';
+import Toolbar from '.components/Toolbar';
+
+//import layouts
+import SharedLayout from './layouts/SahredLayoutwithBar.js';
+
+//import pages
+import SignIn from './pages/Login/SignIn.js';
+import History from './pages/History/History.js';
+import Home from './pages/Home.js';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
