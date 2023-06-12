@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Suspense } from "react";
 import React from 'react';
 
-const Model = () =>{
+const ModelDefault = () =>{
 const gltf = useLoader(GLTFLoader, "./scene.glb");
 return (
 	<>
@@ -14,8 +14,16 @@ return (
 	</>
 );
 };
-//needs to be changed
 
+const ModelCustom = (url) => {
+	const gltf = useLoader(GLTFLoader, url);
+	return (
+		<>
+		<primitive object = {gltf.scene} scale = {0.2}/>
+		</>
+//needs to be changed
+	);
+};
 
 
 export default function GltfRenderer() {
@@ -23,7 +31,7 @@ export default function GltfRenderer() {
 		<div className="GltfRenderer">
 		<Canvas>
 		<Suspense fallback={null}>
-		<Model />
+		<ModelDefault />
 		<OrbitControls enableDamping={false} />
 		<Environment preset="sunset" background />
 		</Suspense>
