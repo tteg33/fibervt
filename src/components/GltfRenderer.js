@@ -19,7 +19,7 @@ const fileToDataUri = (file) => new Promise((resolve, reject)=> {
 
 export default function GltfRendererUpload() {
 
-	const [dataUri, setDataUri] = useState('')
+	const [dataUri, setDataUri] = useState('./scene.glb')
 		const onChange = (file) => {
 			if (!file) {
 				setDataUri("./scene.glb");

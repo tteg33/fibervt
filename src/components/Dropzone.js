@@ -1,25 +1,42 @@
 import React, { Component } from "react";
 import { DropzoneArea } from "mui-file-dropzone";
 import Button from "@mui/material/Button";
-import Link from "react-router-dom";
+import {Link} from "react-router-dom";
+
+const fileToDataUri = (files) => new Promise((resolve, reject) => {
+	const reader = new FileReader();
+	reader.onload = (event) => {
+		resolve(event.target.result)};
+	if(files[0]){
+	reader.readAsDataURL(files[0]);}
+});
 
 
-class DropzoneAreaExample extends Component {
+class GlbDropzone extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      files: [],
-    };
-  }
-  handleChange(files) {
+    this.state = {dataUri: './scene.glb',}; 
+ }
+  onChange(files) {
     this.setState({
-      files: files,
-    });
-  }
+      dataUri: fileToDataUri(files),
+    })
+ }  
+
+   
+//onChange(event) {
+//  let reader = new FileReader();
+//  reader.onload = function(event) {
+//      this.setState({dataUri: reader.result})
+// }
+//reader.readAsDataURL(event.target.files[0]);
+//}  
+
+
   render() {
     return <div>
-		  <DropzoneArea onChange={this.handleChange.bind(this)}/>
-		  <Link to={'/'}>
+		  <DropzoneArea onChange={this.props.onChange()}/>
+		  <Link to='/'>
 		  <Button variant="contained">Render</Button>
 		  </Link>
 			  </div>
@@ -27,4 +44,4 @@ class DropzoneAreaExample extends Component {
   }
 }
 
-export default DropzoneAreaExample;
+export default GlbDropzone;
