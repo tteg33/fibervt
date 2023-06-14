@@ -19,14 +19,13 @@ return (
 };
 
 class GltfRenderer extends React.Component {
-	uri = this.props.dataUri;
 	render() {
 		return(
 		<div className="GltfRenderer">
 		<Canvas>
 		<Suspense fallback={null}>
-		<ambientLight />
 		<ModelDefault dataUri = {this.props.dataUri}/>
+			<Environment files={"/belfast_sunset_puresky_1k.hdr"} background/>
 		<OrbitControls enableDamping={false} />
 		</Suspense>
 		</Canvas>

@@ -38,7 +38,7 @@ class App extends Component {
 		})
 	}
 
-        handleUpload = (files, event) => {if (files[0]){
+        handleUpload = (files, event) => {{
 		this.setState({
 			dataUri: fileToDataUri(files, event),
 		        files: files})

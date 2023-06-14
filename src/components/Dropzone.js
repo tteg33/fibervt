@@ -33,12 +33,14 @@ class GlbDropzone extends Component {
 //reader.readAsDataURL(event.target.files[0]);
 //} 
 
+  render()
 
-  render() {
+  {
     return <div>
 		  <DropzoneArea 
 	  maxFIleSize= '50000000000000'
-	  onDrop={(files, event) => this.props.handleUpload(files, event)}
+	  onDrop={(files, event) => this.props.handleUpload}
+
 		  />
 		  <Link to={{
 			  pathname: '/',
