@@ -38,12 +38,13 @@ class App extends Component {
 		})
 	}
 
-        handleUpload = (files, event) => {{
+        handleUpload = (files, event) => {
+	 console.log("appjs handleupload")	
 		this.setState({
 			dataUri: fileToDataUri(files, event),
 		        files: files})
          	}
-	}
+	
 	render(){
 		return(
 	//	<div>
@@ -57,8 +58,7 @@ class App extends Component {
 		  />}/>
 	<Route path='Login' element={<SignIn/>}/>
 	<Route path='History' element={<History/>}/>
-	<Route path='Upload' element={<Dropzone onDrop={this.handleUpload}
-	/>}/> 
+	<Route path='Upload' element={<Dropzone handleUpload={this.handleUpload}/>}/> 
 	</Route>
 	</Routes>
 	</BrowserRouter>)};
