@@ -1,54 +1,100 @@
-import api from 'axios';
+import axios from 'axios'
 
-api.defaults.baseURL = "http://localhost:8000/";
+const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_baseAPIURL,
+    withCredentials: true,
+});
 
-const setHeader = () => {
-	const token = localStorage.getItem('token');
-	if(token){
-		api.defaults.headers.common['Authorization'] = 'Bearer ${token}';
-	}
+axiosInstance.interceptors.response.use(
+    res => {
+
+        return res;
+    },
+    error => {
+        return Promise.reject(error.response)
+    }
+);
+
+export const signout = () => {
+    return axiosInstance.post(process.env.REACT_APP_baseAPIURL + '/logout').then(user => {
+        // delete axiosInstance.defaults.headers.common["Authorization"];
+        return user.data
+    })
 }
 
-export const GetData = async(endPoint,options) => {
-    try {
-      setHeader();
-      const response = await api.get(endPoint);
-      return response
-    } catch (err) {
-        throw err;
+
+export const init = () => {
+    return axiosInstance.post('/init').then(user => {
+        return user.data
+    })
+}
+
+export const login = (email, password) => {
+    return axiosInstance.post('/login', {
+        email,
+        password
+    }).then(user => {
+        // axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${user.data.token}`;
+        return user.data
+    })
+}
+
+export const signup = (name, email, password) => {
+    return axiosInstance.post('/signup', {
+        name,
+        email,
+        password
+    }).then(user => {
+        return user.data
+    })
+}
+
+export const addGlbAttr = (name, url, size, encrypted, timestamp) => {
+    return axiosInstance.post('/upload', {
+        name,
+        url,
+        size,
+        encrypted,
+        timestamp
+    }).then(todo => {
+        return todo.data
+    })
+}
+
+export const listTodo = () => {
+    //I have used post instead of get, read https://blog.teamtreehouse.com/the-definitive-guide-to-get-vs-post
+    return axiosInstance.post('/history').then(todos => {
+        return todos.data
+    })
+}
+
+//TODO
+/*export const updateTodo = (_id, important = null, done = null) => {
+    //I have used post instead of get, read https://blog.teamtreehouse.com/the-definitive-guide-to-get-vs-post
+    const fieldsToUpdate = {
+        _id
     }
-      
-  }
-  
-  export const PostData = async(endPoint,options) => {
-    try {
-      setHeader();
-      const response = await api.post(endPoint, options);
-      return response
-    } catch (err) {
-        throw err;
-    }  
-  }
- 
 
-  export const PutData= async(endPoint,options) => {
-      try {
-        setHeader();
-        const response = await api.post(endPoint, options);
-        return response
-      } catch (err) {
-          throw err;
-      }
+    if (important !== null) {
+        fieldsToUpdate.important = important
     }
-
-
-  export const DeleteData = async(endPoint,options) => {
-      try {
-        setHeader();
-        const response = await api.post(endPoint, options);
-        return response
-      } catch (err) {
-          throw err;
-      }
+    if (done !== null) {
+        fieldsToUpdate.done = done
     }
+    return axiosInstance.patch('/todo/update', fieldsToUpdate).then(todo => {
+        return todo.data
+    })
+}*/
 
+//TODO
+/*
+export const deleteGlb = (_id) => {
+    //I have used post instead of get, read https://blog.teamtreehouse.com/the-definitive-guide-to-get-vs-post
+    return axiosInstance.delete('/todo/delete', {
+        data: {
+            _id,
+        }
+    }).then(todo => {
+        return todo
+    })
+}*/

@@ -10,6 +10,7 @@ import { fileToDataUri, defaultUri } from './utils/helper.js';
 import SharedLayout from'./layouts/SharedLayoutwithBar.js';
 import SignIn from './pages/Login/SignIn.js';
 import History from './pages/History/History.js';
+import SignUp from './components/SignUp'
 class App extends Component {
 	constructor(props){
 	super(props);
@@ -58,7 +59,8 @@ class App extends Component {
 		  />}/>
 	<Route path='Login' element={<SignIn/>}/>
 	<Route path='History' element={<History/>}/>
-	<Route path='Upload' element={<Dropzone handleUpload={this.handleUpload}/>}/> 
+	<Route path='Upload' element={<Dropzone handleUpload={this.handleUpload}/>}/>
+		<Route path='Signup' element={<SignUp/>}/>
 	</Route>
 	</Routes>
 	</BrowserRouter>)};
